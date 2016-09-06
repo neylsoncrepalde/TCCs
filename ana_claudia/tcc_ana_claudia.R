@@ -54,31 +54,63 @@ levels(dados$motivo) <- c("Dificuldade de acompanhamento na escola regular",
                           "Estudar para concurso","Outros")
 freq(dados$motivo) %>% xtable
 
-# PARTE II
+# BLOCO II
 #==============
 # Parei aqui!!!
-freq(dados $receptividade.professores)
+dados$receptividade.professores %<>% as.factor
+levels(dados$receptividade.professores) <- c("Ótima", "Boa","Ruim")
+freq(dados$receptividade.professores) %>% xtable
+
+freq(dados$satisfeito.conteudo)
+freq(dados$tempo.suf)
+freq(dados$TPR)
+freq(dados$ensino)
+freq(dados$quantidade)
+
+# Resultados
+#=================
+freq(dados$result1, plot = F) %>% xtable
+freq(dados$result2, plot = F) %>% xtable
+freq(dados$result3, plot = F) %>% xtable
+freq(dados$result4, plot = F) %>% xtable
+
+freq(dados$material, plot=F) %>% xtable
+
+# BLOCO III
+#======================
+freq(dados$efic.metodo)
+freq(dados$feedback)
+freq(dados$dominio.conteudo)
+freq(dados$conteudo.outras.areas)
+
+dados$melhorar %<>% as.factor
+levels(dados$melhorar) <- c("O conteúdo dos blocos","Nada, acho que está ótimo","Outro")
+ggplot(dados, aes(reorder(melhorar, melhorar, length)))+geom_bar()+
+  theme_bw(base_size = 14)+labs(x="",y="")+coord_flip()
+freq(dados$melhorar) %>% xtable
 
 
-freq(dados[[8]])
-freq(dados[[9]])
-freq(dados[[10]])
+#BLOCO III
+#==================
 
-freq(dados[[30]])
+ggplot(dados, aes(reorder(canc.prop.aprend, canc.prop.aprend, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+ggplot(dados, aes(reorder(canc.estagios, canc.estagios, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+ggplot(dados, aes(reorder(canc.folhas, canc.folhas, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+ggplot(dados, aes(reorder(canc.preco, canc.preco, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+ggplot(dados, aes(reorder(canc.local, canc.local, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+ggplot(dados, aes(reorder(canc.prof, canc.prof, length)))+
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
 
-library(ggplot2)
-ggplot(data=dados, aes(x=idade))+geom_bar()
 
-# Análises
-#####################################
-tab.contingencia <- table(dados$escolaridade, dados$efic.metodo)
 
-chisq.test(tab.contingencia)
-cv.test = function(x,y) {
-  CV = sqrt(chisq.test(x, y, correct=FALSE)$statistic /
-              (length(x) * (min(length(unique(x)),length(unique(y))) - 1)))
-  print.noquote("Cramér V / Phi:")
-  return(as.numeric(CV))
-}
-cor.test(dados$efic.metodo, dados$idade)
+# Analíticas
+#=========================================
+table(dados$canc.preco, dados$escolaridade) %>% chisq.test
+cv.test(dados$canc.preco, dados$escolaridade)
+
 

@@ -37,9 +37,16 @@ dados$materias %<>% as.factor
 levels(dados$materias) <- c("Portuguès","Matemática","Inglês","Português + Matemática",
                             "Português + Inglês","Matemática + Inglês",
                             "Português + Matemática + Inglês")
-freq(dados$materias) %>% xtable
+freq(dados$materias, plot=F) %>% xtable
 ggplot(dados, aes(reorder(materias, materias, length)))+
-  geom_bar()+coord_flip()+labs(x="",y="")+theme_bw(base_size = 14)
+  geom_bar()+coord_flip()+labs(x="",y="")+theme_bw(base_size = 14)+
+  annotate(geom="text",x=7,y=9, label="28.95%", col="white")+
+  annotate(geom="text",x=6,y=7.5, label="23.68%", col="white")+
+  annotate(geom="text",x=5,y=6, label="18.42%", col="white")+
+  annotate(geom="text",x=4,y=6, label="13.16%")+
+  annotate(geom="text",x=3,y=4.5, label="7.9%")+
+  annotate(geom="text",x=2,y=3, label="5.26%")+
+  annotate(geom="text",x=1,y=3, label="2.63%")
 
 # Quanto tempo
 dados$quanto.tempo %<>% as.factor
@@ -86,31 +93,67 @@ freq(dados$conteudo.outras.areas)
 dados$melhorar %<>% as.factor
 levels(dados$melhorar) <- c("O conteúdo dos blocos","Nada, acho que está ótimo","Outro")
 ggplot(dados, aes(reorder(melhorar, melhorar, length)))+geom_bar()+
-  theme_bw(base_size = 14)+labs(x="",y="")+coord_flip()
-freq(dados$melhorar) %>% xtable
+  theme_bw(base_size = 14)+labs(x="",y="")+coord_flip()+
+  annotate(geom="text",x=3,y=20,label="63.16%",col="white")+
+  annotate(geom="text",x=2,y=15,label="28.95%")+
+  annotate(geom="text",x=1,y=7,label="7.9%")
+freq(dados$melhorar,plot=F) %>% xtable
 
 
 #BLOCO III
 #==================
 
 ggplot(dados, aes(reorder(canc.prop.aprend, canc.prop.aprend, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=5,y=16,label="50%",col="white")+
+  annotate(geom="text",x=4,y=10,label="21.1%")+
+  annotate(geom="text",x=3,y=8,label="13.16%")+
+  annotate(geom="text",x=2,y=8,label="13.16%")+
+  annotate(geom="text",x=1,y=5,label="2.63%")
+
 ggplot(dados, aes(reorder(canc.estagios, canc.estagios, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=5,y=12,label="42.11%",col="white")+
+  annotate(geom="text",x=4,y=12,label="42.11%",col="white")+
+  annotate(geom="text",x=3,y=6,label="7.9%")+
+  annotate(geom="text",x=2,y=5,label="5.26%")+
+  annotate(geom="text",x=1,y=4,label="2.63%")
+
+dados$canc.folhas[dados$canc.folhas=="Discordo "] <- "Discordo"
 ggplot(dados, aes(reorder(canc.folhas, canc.folhas, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=5,y=15,label="47.37%",col="white")+
+  annotate(geom="text",x=4,y=10,label="47.37%",col="white")+
+  annotate(geom="text",x=3,y=5,label="7.9%")+
+  annotate(geom="text",x=2,y=5,label="7.9%")+
+  annotate(geom="text",x=1,y=4,label="2.63%")
+
 ggplot(dados, aes(reorder(canc.preco, canc.preco, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=4,y=14,label="44.74%",col="white")+
+  annotate(geom="text",x=3,y=12,label="26.32%")+
+  annotate(geom="text",x=2,y=11,label="23.68%")+
+  annotate(geom="text",x=1,y=5,label="5.26%")
+
+dados$canc.local[dados$canc.local=="Discordo "] <- "Discordo"
 ggplot(dados, aes(reorder(canc.local, canc.local, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=5,y=11,label="34.21%",col="white")+
+  annotate(geom="text",x=4,y=9,label="28.95%",col="white")+
+  annotate(geom="text",x=3,y=6,label="21.05%",col="white")+
+  annotate(geom="text",x=2,y=6,label="10.53%")+
+  annotate(geom="text",x=1,y=4,label="5.26%")
+
 ggplot(dados, aes(reorder(canc.prof, canc.prof, length)))+
-  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")
-
-
+  geom_bar()+coord_flip()+theme_bw(base_size = 14)+labs(x="",y="")+
+  annotate(geom="text",x=5,y=19,label="57.9%",col="white")+
+  annotate(geom="text",x=4,y=9,label="31.58%",col="white")+
+  annotate(geom="text",x=3,y=5,label="5.26%")+
+  annotate(geom="text",x=2,y=5,label="2.63%")+
+  annotate(geom="text",x=1,y=5,label="2.63%")
 
 # Analíticas
 #=========================================
 table(dados$canc.preco, dados$escolaridade) %>% chisq.test
 cv.test(dados$canc.preco, dados$escolaridade)
-
 
